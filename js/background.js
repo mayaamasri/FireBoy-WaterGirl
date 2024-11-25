@@ -3,8 +3,8 @@ class Background extends Sprite {
         super();
         this.x = 0;
         this.y = 0;
-        this.width = 1000;
-        this.height = 800;
+        this.width = 900;
+        this.height = 700;
         this.image = new Image();
         this.image.src = 'images/background.png';
     }
