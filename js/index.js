@@ -11,9 +11,9 @@ const platforms = [
 
   new Platform(750, 575, 100, 75),
   
-  new Platform(0, 425, 400, 25),
-  new Platform(400, 425, 50, 50),
-  new Platform(400, 475, 325, 25),
+  new Platform(0, 425, 425, 25),
+  new Platform(400, 425, 50, 75),
+  new Platform(425, 475, 325, 25),
 
   new Platform(100, 350, 800, 25),
   

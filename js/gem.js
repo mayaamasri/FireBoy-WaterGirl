@@ -3,14 +3,39 @@ class Gem extends Sprite {
         super();
         this.x = x;
         this.y = y;
-        this.width = 20;
-        this.height = 20;
-        this.type = type; 
+        this.originalY = y;
+        this.width = 35; 
+        this.height = 35; 
+        this.type = type;
         this.collected = false;
+        this.moveSpeed = 0.07;
+        this.maxOffset = 5;
+        this.offset = 0;
+        this.movingUp = true;
+        this.glowIntensity = 1;
+        
+        // Load sprite sheet
+        this.spriteSheet = new Image();
+        this.spriteSheet.src = 'images/gems.png';
     }
 
     update(sprites) {
-        if (this.collected) return true; 
+        if (this.collected) return true;
+
+        // Floating animation
+        if (this.movingUp) {
+            this.offset += this.moveSpeed;
+            if (this.offset >= this.maxOffset) {
+                this.movingUp = false;
+            }
+        } else {
+            this.offset -= this.moveSpeed;
+            if (this.offset <= -this.maxOffset) {
+                this.movingUp = true;
+            }
+        }
+        
+        this.y = this.originalY + this.offset;
 
         sprites.forEach(sprite => {
             if (sprite instanceof Player) {
@@ -31,14 +56,37 @@ class Gem extends Sprite {
 
     draw(ctx) {
         if (!this.collected) {
-            ctx.fillStyle = this.type === 'fire' ? '#ff0000' : '#00ffff';
-            ctx.beginPath();
-            ctx.moveTo(this.x + this.width/2, this.y);
-            ctx.lineTo(this.x + this.width, this.y + this.height/2);
-            ctx.lineTo(this.x + this.width/2, this.y + this.height);
-            ctx.lineTo(this.x, this.y + this.height/2);
-            ctx.closePath();
-            ctx.fill();
+            const baseColor = this.type === 'fire' ? 
+                {r: 255, g: 0, b: 0} : 
+                {r: 0, g: 255, b: 255};
+            
+            // Draw glow
+            const glowSize = 20;
+            const gradient = ctx.createRadialGradient(
+                this.x + this.width/2, this.y + this.height/2, 0,
+                this.x + this.width/2, this.y + this.height/2, glowSize
+            );
+            
+            gradient.addColorStop(0, `rgba(${baseColor.r}, ${baseColor.g}, ${baseColor.b}, ${0.5 * this.glowIntensity})`);
+            gradient.addColorStop(1, 'rgba(0, 0, 0, 0)');
+            
+            ctx.fillStyle = gradient;
+            ctx.fillRect(
+                this.x - glowSize, 
+                this.y - glowSize, 
+                this.width + glowSize * 2, 
+                this.height + glowSize * 2
+            );
+            
+            // Draw the appropriate gem from sprite sheet
+            const sourceX = this.type === 'water' ? 0 : 24;
+            ctx.drawImage(
+                this.spriteSheet,
+                sourceX, 0,    
+                24, 24,      
+                this.x, this.y,
+                this.width, this.height
+            );
         }
     }
 }
