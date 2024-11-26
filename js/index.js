@@ -11,9 +11,8 @@ const platforms = [
 
   new Platform(750, 575, 100, 75),
   
-  new Platform(0, 425, 425, 25),
-  new Platform(400, 425, 50, 75),
-  new Platform(425, 475, 325, 25),
+  new Platform(0, 450, 450, 25),
+  new Platform(400, 475, 325, 25),
 
   new Platform(100, 350, 800, 25),
   
@@ -41,9 +40,9 @@ const gems = [
 const doors = [new Door(675, 50, "fire"), new Door(775, 50, "water")];
 
 doors.forEach((door) => game.addSprite(door));
-game.addSprite(fireBoy);
-game.addSprite(waterGirl);
 platforms.forEach((platform) => game.addSprite(platform));
 gems.forEach((gem) => game.addSprite(gem));
+game.addSprite(fireBoy);
+game.addSprite(waterGirl);
 
 game.animate();
