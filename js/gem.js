@@ -38,7 +38,7 @@ class Gem extends Sprite {
         this.y = this.originalY + this.offset;
 
         sprites.forEach(sprite => {
-            if (sprite instanceof Player) {
+            if (sprite instanceof WaterGirl || sprite instanceof FireBoy) {
                 if (sprite.type === this.type && this.checkCollision(sprite)) {
                     this.collected = true;
                 }

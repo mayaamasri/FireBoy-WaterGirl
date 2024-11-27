@@ -3,8 +3,8 @@ const game = new Game();
 const background = new Background();
 game.addSprite(background);
 
-const fireBoy = new Player(50, 500, "fire");
-const waterGirl = new Player(50, 700, "water");
+const fireBoy = new FireBoy(50, 500);
+const waterGirl = new WaterGirl(50, 700);
 
 const platforms = [
   new Platform(0, 550, 300, 25),
