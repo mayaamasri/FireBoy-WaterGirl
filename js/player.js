@@ -44,8 +44,8 @@ class Player extends Sprite {
         if (this.y < 0) {
             this.y = 0;
             this.velocityY = 0;
-        } else if (this.y + this.height > 650) {
-            this.y = 650 - this.height;
+        } else if (this.y + this.height > 750) {
+            this.y = 750 - this.height;
             this.velocityY = 0;
             this.isJumping = false;
         }

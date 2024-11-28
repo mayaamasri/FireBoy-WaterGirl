@@ -4,7 +4,7 @@ class Background extends Sprite {
         this.x = 0;
         this.y = 0;
         this.width = 850;
-        this.height = 650;
+        this.height = 750;
         this.brickWidth = 50;
         this.brickHeight = 25;
     }
