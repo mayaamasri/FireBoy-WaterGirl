@@ -27,7 +27,7 @@ class WaterGirl extends Player {
         
         this.frameInterval = 120;
         this.lastFrameUpdate = 0;
-        this.faceOffsetY = -25;
+        this.faceOffsetY = -20;
         this.isMoving = false;
         this.direction = 1;
     }
@@ -77,9 +77,9 @@ class WaterGirl extends Player {
             this.frameWidth,
             this.frameHeight,
             this.x,
-            this.y + 5,
-            35,
-            30
+            this.y + 10,
+            30,
+            25
         );
 
         if (this.isMoving) {
@@ -101,7 +101,7 @@ class WaterGirl extends Player {
                 0,
                 this.idleFaceWidth,
                 this.idleFaceHeight,
-                this.x - 2,
+                this.x - 5,
                 this.y + this.faceOffsetY,
                 40,
                 40
