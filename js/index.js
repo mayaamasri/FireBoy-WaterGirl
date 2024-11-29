@@ -24,7 +24,6 @@ const platforms = [
   new Platform(300, 550, 200, 25),
   new Platform(500, 565, 120, 10),
   new Platform(620, 550, 100, 25),
-  
 
   new Platform(150, 400, 700, 25),
   
@@ -52,11 +51,11 @@ const gems = [
 const doors = [new Door(650, 100, "fire"), new Door(750, 100, "water")];
 
 const rivers = [
-  new River(300, 725, 150, 15, "fire"),
-  new River(550, 725, 150, 15, "water"),
+  new River(300, 727, 150, 12, "fire"),
+  new River(550, 727, 150, 12, "water"),
 ];
 
-const hazardRiver = new River(500, 550, 120, 15, 'hazard');
+const hazardRiver = new River(500, 552, 120, 12, 'hazard');
 
 
 platforms.forEach((platform) => game.addSprite(platform));
