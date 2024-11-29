@@ -11,7 +11,7 @@ class Player extends Sprite {
         this.isJumping = false;
         this.gravity = 0.5;
         this.jumpForce = -10;
-        this.moveSpeed = 6;
+        this.moveSpeed = 4;
     }
 
     update(sprites, keys) {

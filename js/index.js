@@ -25,7 +25,7 @@ const platforms = [
   new Platform(500, 565, 120, 10),
   new Platform(620, 550, 100, 25),
 
-  new Platform(150, 400, 700, 25),
+  new Platform(125, 400, 700, 25),
   
   new Platform(0, 200, 150, 100),
   new Platform(425, 250, 150, 50),
@@ -36,6 +36,8 @@ const platforms = [
   new Platform(325, 175, 800, 25)
 
 ];
+
+const lever = new Lever(200, 490);
 
 const gems = [
   new Gem(610, 675, "water"),
@@ -57,10 +59,22 @@ const rivers = [
 
 const hazardRiver = new River(500, 552, 120, 12, 'hazard');
 
+const movingBar = new MovingBar(25, 400, 100, 25, 75, 'down');
+
+const buttons = [
+    new Button(275, 375),
+    new Button(625, 275)
+];
+
+const buttonBar = new ButtonBar(725, 300, 100, 25, 75);
 
 platforms.forEach((platform) => game.addSprite(platform));
+game.addSprite(lever);
 game.addSprite(fireBoy);
 game.addSprite(waterGirl);
+game.addSprite(movingBar);
+buttons.forEach(button => game.addSprite(button));
+game.addSprite(buttonBar);
 rivers.forEach(river => game.addSprite(river));
 game.addSprite(hazardRiver);
 doors.forEach((door) => game.addSprite(door));
