@@ -6,7 +6,7 @@ class River extends Sprite {
         this.width = width;
         this.height = height;
         this.type = type;
-        this.waveOffset = 5;
+        this.waveOffset = 3;
         this.waveSpeed = 0.1;
     }
 
@@ -36,7 +36,7 @@ class River extends Sprite {
     }
 
     draw(ctx) {
-        ctx.globalAlpha = 0.5;
+        ctx.globalAlpha = 0.6;
         
         // Set color based on type
         switch(this.type) {
@@ -56,13 +56,12 @@ class River extends Sprite {
         ctx.beginPath();
         ctx.moveTo(this.x, this.y + this.height);
         
-        for (let x = 0; x <= this.width; x += 20) {
+        for (let x = 0; x <= this.width; x += 10) {
             ctx.lineTo(
                 this.x + x, 
                 this.y + Math.sin(x * 0.2 + this.waveOffset) * 3
             );
         }
-        
         ctx.lineTo(this.x + this.width, this.y + this.height);
         ctx.closePath();
         ctx.fill();

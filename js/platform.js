@@ -6,7 +6,7 @@ class Platform extends Sprite {
         this.width = width;
         this.height = height;
         this.brickWidth = 50;
-        this.brickHeight = 25;
+        this.brickHeight = height < 25 ? height : 25;
     }
 
     update() {
