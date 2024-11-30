@@ -38,20 +38,13 @@ class River extends Sprite {
     draw(ctx) {
         ctx.globalAlpha = 0.6;
         
-        // Set color based on type
-        switch(this.type) {
-            case 'fire':
-                ctx.fillStyle = '#ff0000';
-                break;
-            case 'water':
-                ctx.fillStyle = '#0088ff';
-                break;
-            case 'hazard':
-                ctx.fillStyle = '#00ff00';
-                break;
-            default:
-                ctx.fillStyle = '#ffffff';
-        }
+        const colors = {
+            fire: '#ff0000',
+            water: '#0088ff',
+            hazard: '#00ff00'
+        };
+        
+        ctx.fillStyle = colors[this.type] || '#ffffff';
 
         ctx.beginPath();
         ctx.moveTo(this.x, this.y + this.height);
