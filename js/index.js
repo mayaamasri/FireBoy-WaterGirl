@@ -1,5 +1,6 @@
 const game = new Game();
 
+const menuScreen = new MenuScreen();
 const background = new Background();
 game.addSprite(background);
 
@@ -19,22 +20,21 @@ const platforms = [
   new Platform(0, 625, 250, 25),
 
   new Platform(750, 650, 100, 75),
-  
+
   new Platform(0, 525, 350, 25),
   new Platform(300, 550, 200, 25),
   new Platform(500, 565, 120, 10),
   new Platform(620, 550, 100, 25),
 
   new Platform(125, 400, 700, 25),
-  
+
   new Platform(0, 200, 150, 100),
   new Platform(425, 250, 150, 50),
   new Platform(0, 300, 725, 25),
 
   new Platform(225, 100, 100, 25),
   new Platform(325, 100, 100, 75),
-  new Platform(325, 175, 800, 25)
-
+  new Platform(325, 175, 800, 25),
 ];
 
 const lever = new Lever(200, 490);
@@ -57,21 +57,15 @@ const rivers = [
   new River(550, 727, 150, 12, "water"),
 ];
 
-const hazardRiver = new River(500, 552, 120, 12, 'hazard');
+const hazardRiver = new River(500, 552, 120, 12, "hazard");
 
-const movingBar = new MovingBar(25, 400, 100, 25, 75, 'down');
+const movingBar = new MovingBar(25, 400, 100, 25, 75, "down");
 
-const buttons = [
-    new Button(275, 375),
-    new Button(625, 275)
-];
+const buttons = [new Button(275, 375), new Button(625, 275)];
 
-const rocks = [
-  new Rock(500, 200, 50, 50)
-];
+const rocks = [new Rock(500, 200, 50, 50)];
 
 const buttonBar = new ButtonBar(725, 300, 100, 25, 75);
-const menuScreen = new MenuScreen();
 
 doors.forEach((door) => game.addSprite(door));
 platforms.forEach((platform) => game.addSprite(platform));
@@ -79,10 +73,10 @@ game.addSprite(lever);
 game.addSprite(fireBoy);
 game.addSprite(waterGirl);
 game.addSprite(movingBar);
-rocks.forEach(rock => game.addSprite(rock));
-buttons.forEach(button => game.addSprite(button));
+rocks.forEach((rock) => game.addSprite(rock));
+buttons.forEach((button) => game.addSprite(button));
 game.addSprite(buttonBar);
-rivers.forEach(river => game.addSprite(river));
+rivers.forEach((river) => game.addSprite(river));
 game.addSprite(hazardRiver);
 gems.forEach((gem) => game.addSprite(gem));
 game.addSprite(menuScreen);

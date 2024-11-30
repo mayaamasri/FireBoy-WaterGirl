@@ -12,6 +12,10 @@ class MenuScreen extends Sprite {
         this.background = new Image();
         this.background.src = 'images/menu-bg.png';
         
+        this.bgMusic = new Audio('sounds/background.mp3');
+        this.bgMusic.loop = true;
+        this.bgMusic.volume = 0.4;
+
         this.buttons = {
             MENU: [
                 { text: 'Play', x: 350, y: 300, width: 150, height: 50 },
@@ -30,6 +34,8 @@ class MenuScreen extends Sprite {
             STORY: 'FireBoy and WaterGirl must work together to collect gems and reach their respective doors.',
             WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them.'
         };
+
+        document.addEventListener('click', () => this.bgMusic.play(), { once: true });
     }
 
     update(sprites, keys) {

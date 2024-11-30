@@ -6,6 +6,7 @@ class Door extends Sprite {
         this.width = 70;
         this.height = 81;
         this.type = type;
+        this.doorSound = new Audio('sounds/door.mp3');
         
         // Animation properties
         this.spriteSheet = new Image();
@@ -50,9 +51,11 @@ class Door extends Sprite {
         const currentTime = Date.now();
         
         if (playerNearby && currentState === 'CLOSED') {
+            this.doorSound.play();
             this.state.current = 'OPENING';
         } else if (!playerNearby && currentState === 'OPENING' && 
                    this.currentFrame === this.state[currentState].endFrame) {
+                    this.doorSound.play();
             this.state.current = 'CLOSED';
         }
 

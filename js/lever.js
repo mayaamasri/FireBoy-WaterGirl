@@ -23,6 +23,8 @@ class Lever extends Sprite {
         fontFace.load().then(font => {
             document.fonts.add(font);
         });
+
+        this.leverSound = new Audio('sounds/lever-button.mp3');
     }
 
     update(sprites, keys) {
@@ -54,6 +56,7 @@ class Lever extends Sprite {
 
     toggle() {
         this.state.current = this.state[this.state.current];
+        this.leverSound.play();
     }
 
     checkCollision(player) {

@@ -8,6 +8,9 @@ class River extends Sprite {
         this.type = type;
         this.waveOffset = 3;
         this.waveSpeed = 0.1;
+        
+        this.riverSound = new Audio('sounds/river.mp3');
+        this.riverSound.volume = 0.3;
     }
 
     update(sprites) {
@@ -21,6 +24,14 @@ class River extends Sprite {
                         sprite.y = sprite.type === 'fire' ? 575 : 675;
                         sprite.velocityX = 0;
                         sprite.velocityY = 0;
+                    }
+                } else {
+                    if (this.checkCollision(sprite)) {
+                        if (!this.riverSound.paused) {
+                            this.riverSound.pause();
+                        } else {
+                            this.riverSound.play();
+                        }
                     }
                 }
             }

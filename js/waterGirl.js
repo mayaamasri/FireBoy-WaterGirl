@@ -30,6 +30,8 @@ class WaterGirl extends Player {
         this.faceOffsetY = -20;
         this.isMoving = false;
         this.direction = 1;
+
+        this.jumpSound = new Audio('sounds/jump.mp3');
     }
 
     handleMovement(keys) {
@@ -50,6 +52,7 @@ class WaterGirl extends Player {
         if (keys['w'] && !this.isJumping) {
             this.velocityY = this.jumpForce;
             this.isJumping = true;
+            this.jumpSound.play();
         }
     }
 

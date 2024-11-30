@@ -17,6 +17,8 @@ class Gem extends Sprite {
         // Load sprite sheet
         this.spriteSheet = new Image();
         this.spriteSheet.src = 'images/gems.png';
+
+        this.collectSound = new Audio('sounds/gem.mp3');
     }
 
     update(sprites) {
@@ -41,6 +43,7 @@ class Gem extends Sprite {
             if (sprite instanceof WaterGirl || sprite instanceof FireBoy) {
                 if (sprite.type === this.type && this.checkCollision(sprite)) {
                     this.collected = true;
+                    this.collectSound.play();
                 }
             }
         });

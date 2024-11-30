@@ -30,6 +30,8 @@ class FireBoy extends Player {
         this.faceOffsetY = -25;
         this.isMoving = false;
         this.direction = 1;
+
+        this.jumpSound = new Audio('sounds/jump.mp3');
     }
 
     handleMovement(keys) {
@@ -48,6 +50,7 @@ class FireBoy extends Player {
         }
 
         if (keys['ArrowUp'] && !this.isJumping) {
+            this.jumpSound.play();
             this.velocityY = this.jumpForce;
             this.isJumping = true;
         }

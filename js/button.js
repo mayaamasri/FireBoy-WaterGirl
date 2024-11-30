@@ -6,18 +6,28 @@ class Button extends Sprite {
         this.width = 55;
         this.height = 30;
         this.isPressed = false;
+        this.wasPressed = false;
         this.spriteSheet = new Image();
         this.spriteSheet.src = 'images/button.png';
+        this.buttonSound = new Audio('sounds/lever-button.mp3');
     }
 
     update(sprites) {
+        this.wasPressed = this.isPressed;
         this.isPressed = false;
+
         sprites.forEach(sprite => {
             if ((sprite instanceof FireBoy || sprite instanceof WaterGirl) && 
                 this.detectCollision(sprite)) {
                 this.isPressed = true;
             }
         });
+
+        if (this.isPressed && !this.wasPressed) {
+            this.buttonSound.currentTime = 0;
+            this.buttonSound.play();
+        }
+
         return false;
     }
 
