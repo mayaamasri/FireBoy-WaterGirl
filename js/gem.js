@@ -61,7 +61,7 @@ class Gem extends Sprite {
                 {r: 0, g: 255, b: 255};
             
             // Draw glow
-            const glowSize = 20;
+            const glowSize = 35;
             const gradient = ctx.createRadialGradient(
                 this.x + this.width/2, this.y + this.height/2, 0,
                 this.x + this.width/2, this.y + this.height/2, glowSize

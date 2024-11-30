@@ -50,7 +50,7 @@ const gems = [
   new Gem(275, 50, "fire"),
 ];
 
-const doors = [new Door(650, 100, "fire"), new Door(750, 100, "water")];
+const doors = [new Door(625, 95, "fire"), new Door(725, 95, "water")];
 
 const rivers = [
   new River(300, 727, 150, 12, "fire"),
@@ -66,18 +66,23 @@ const buttons = [
     new Button(625, 275)
 ];
 
+const rocks = [
+  new Rock(500, 200, 50, 50)
+];
+
 const buttonBar = new ButtonBar(725, 300, 100, 25, 75);
 
+doors.forEach((door) => game.addSprite(door));
 platforms.forEach((platform) => game.addSprite(platform));
 game.addSprite(lever);
 game.addSprite(fireBoy);
 game.addSprite(waterGirl);
 game.addSprite(movingBar);
+rocks.forEach(rock => game.addSprite(rock));
 buttons.forEach(button => game.addSprite(button));
 game.addSprite(buttonBar);
 rivers.forEach(river => game.addSprite(river));
 game.addSprite(hazardRiver);
-doors.forEach((door) => game.addSprite(door));
 gems.forEach((gem) => game.addSprite(gem));
 
 game.animate();
