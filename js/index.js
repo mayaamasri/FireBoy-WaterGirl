@@ -71,6 +71,7 @@ const rocks = [
 ];
 
 const buttonBar = new ButtonBar(725, 300, 100, 25, 75);
+const menuScreen = new MenuScreen();
 
 doors.forEach((door) => game.addSprite(door));
 platforms.forEach((platform) => game.addSprite(platform));
@@ -84,5 +85,6 @@ game.addSprite(buttonBar);
 rivers.forEach(river => game.addSprite(river));
 game.addSprite(hazardRiver);
 gems.forEach((gem) => game.addSprite(gem));
+game.addSprite(menuScreen);
 
 game.animate();
