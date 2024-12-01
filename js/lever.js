@@ -19,11 +19,6 @@ class Lever extends Sprite {
         this.frameWidth = 80;
         this.frameHeight = 70;
 
-        const fontFace = new FontFace('TrajanPro', 'url(fonts/TrajanPro-Bold.otf)');
-        fontFace.load().then(font => {
-            document.fonts.add(font);
-        });
-
         this.leverSound = new Audio('sounds/lever-button.mp3');
     }
 

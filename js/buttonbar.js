@@ -1,5 +1,5 @@
 class ButtonBar extends Platform {
-    constructor(x, y, width, height, moveDistance, direction = 'down') {
+    constructor(x, y, width, height, moveDistance, direction) {
         super(x, y, width, height);
         this.initialX = x;
         this.initialY = y;

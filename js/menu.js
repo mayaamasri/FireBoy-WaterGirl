@@ -52,13 +52,14 @@ class MenuScreen extends Sprite {
 
         this.content = {
             STORY: 'FireBoy and WaterGirl must work together to collect gems and reach their respective doors.',
-            WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them.',
+            WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them. Press R to restart.',
             GAME_OVER: 'Game Over! Try again?',
             WIN: 'Level Complete!'
         };
 
         document.addEventListener('click', () => this.bgMusic.play(), { once: true });
     }
+
 
     update(sprites, keys) {
         const canvas = document.getElementById('canvas');
@@ -95,12 +96,21 @@ class MenuScreen extends Sprite {
             case 'Back':
                 this.state.current = this.state.MENU;
                 break;
-            case 'Level 1':
-            case 'Level 2':
-            case 'Level 3':
-                this.selectedLevel = parseInt(buttonText.slice(-1));
-                this.state.current = this.state.PLAYING;
-                break;
+                case 'Level 1':
+                    const levelManager = new LevelManager();
+                    levelManager.loadLevel(1);
+                    this.state.current = this.state.PLAYING;
+                    break;
+                case 'Level 2':
+                    const levelManager2 = new LevelManager();
+                    levelManager2.loadLevel(2);
+                    this.state.current = this.state.PLAYING;
+                    break;
+                case 'Level 3':
+                    const levelManager3 = new LevelManager();
+                    levelManager3.loadLevel(3);
+                    this.state.current = this.state.PLAYING;
+                    break;
             case 'Retry':
                 this.state.current = this.state.PLAYING;
                 break;

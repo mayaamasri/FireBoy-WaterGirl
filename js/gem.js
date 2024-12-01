@@ -24,7 +24,6 @@ class Gem extends Sprite {
     update(sprites) {
         if (this.collected) return true;
 
-        // Floating animation
         if (this.movingUp) {
             this.offset += this.moveSpeed;
             if (this.offset >= this.maxOffset) {
@@ -44,6 +43,8 @@ class Gem extends Sprite {
                 if (sprite.type === this.type && this.checkCollision(sprite)) {
                     this.collected = true;
                     this.collectSound.play();
+                    const scoreManager = sprites.find(s => s instanceof ScoreManager);
+                    if (scoreManager) scoreManager.addScore(100);
                 }
             }
         });
