@@ -6,8 +6,14 @@ class MenuScreen extends Sprite {
             MENU: 'MENU',
             STORY: 'STORY',
             WALKTHROUGH: 'WALKTHROUGH',
-            PLAYING: 'PLAYING'
+            LEVEL_SELECT: 'LEVEL_SELECT',
+            PLAYING: 'PLAYING',
+            GAME_OVER: 'GAME_OVER',
+            WIN: 'WIN'
         };
+        
+        this.selectedLevel = 1;
+        this.maxLevels = 3;
         
         this.background = new Image();
         this.background.src = 'images/menu-bg.png';
@@ -18,21 +24,37 @@ class MenuScreen extends Sprite {
 
         this.buttons = {
             MENU: [
-                { text: 'Play', x: 350, y: 300, width: 150, height: 50 },
-                { text: 'Story', x: 350, y: 375, width: 150, height: 50 },
-                { text: 'Walkthrough', x: 300, y: 450, width: 250, height: 50 }
+                { text: 'Play', x: 350, y: 325, width: 150, height: 50 },
+                { text: 'Story', x: 350, y: 400, width: 150, height: 50 },
+                { text: 'Walkthrough', x: 300, y: 475, width: 250, height: 50 }
             ],
             STORY: [
                 { text: 'Back', x: 350, y: 600, width: 150, height: 50 }
             ],
             WALKTHROUGH: [
                 { text: 'Back', x: 350, y: 600, width: 150, height: 50 }
+            ],
+            LEVEL_SELECT: [
+                { text: 'Level 1', x: 350, y: 350, width: 150, height: 50 },
+                { text: 'Level 2', x: 350, y: 420, width: 150, height: 50 },
+                { text: 'Level 3', x: 350, y: 495, width: 150, height: 50 },
+                { text: 'Back', x: 350, y: 600, width: 150, height: 50 }
+            ],
+            GAME_OVER: [
+                { text: 'Retry', x: 300, y: 400, width: 150, height: 50 },
+                { text: 'Menu', x: 500, y: 400, width: 150, height: 50 }
+            ],
+            WIN: [
+                { text: 'Next Level', x: 300, y: 400, width: 150, height: 50 },
+                { text: 'Menu', x: 500, y: 400, width: 150, height: 50 }
             ]
         };
 
         this.content = {
             STORY: 'FireBoy and WaterGirl must work together to collect gems and reach their respective doors.',
-            WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them.'
+            WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them.',
+            GAME_OVER: 'Game Over! Try again?',
+            WIN: 'Level Complete!'
         };
 
         document.addEventListener('click', () => this.bgMusic.play(), { once: true });
@@ -46,49 +68,85 @@ class MenuScreen extends Sprite {
             const mouseX = event.clientX - rect.left;
             const mouseY = event.clientY - rect.top;
             
-            this.buttons[this.state.current].forEach(button => {
-                if (mouseX >= button.x && mouseX <= button.x + button.width &&
-                    mouseY >= button.y && mouseY <= button.y + button.height) {
-                    switch(button.text) {
-                        case 'Play':
-                            this.state.current = this.state.PLAYING;
-                            canvas.onclick = null;
-                            return true;
-                        case 'Story':
-                            this.state.current = this.state.STORY;
-                            break;
-                        case 'Walkthrough':
-                            this.state.current = this.state.WALKTHROUGH;
-                            break;
-                        case 'Back':
-                            this.state.current = this.state.MENU;
-                            break;
+            if (this.buttons[this.state.current]) {
+                this.buttons[this.state.current].forEach(button => {
+                    if (mouseX >= button.x && mouseX <= button.x + button.width &&
+                        mouseY >= button.y && mouseY <= button.y + button.height) {
+                        this.handleButtonClick(button.text);
                     }
-                }
-            });
+                });
+            }
         };
 
         return this.state.current === this.state.PLAYING;
     }
 
+    handleButtonClick(buttonText) {
+        switch(buttonText) {
+            case 'Play':
+                this.state.current = this.state.LEVEL_SELECT;
+                break;
+            case 'Story':
+                this.state.current = this.state.STORY;
+                break;
+            case 'Walkthrough':
+                this.state.current = this.state.WALKTHROUGH;
+                break;
+            case 'Back':
+                this.state.current = this.state.MENU;
+                break;
+            case 'Level 1':
+            case 'Level 2':
+            case 'Level 3':
+                this.selectedLevel = parseInt(buttonText.slice(-1));
+                this.state.current = this.state.PLAYING;
+                break;
+            case 'Retry':
+                this.state.current = this.state.PLAYING;
+                break;
+            case 'Menu':
+                this.state.current = this.state.MENU;
+                break;
+            case 'Next Level':
+                if (this.selectedLevel < this.maxLevels) {
+                    this.selectedLevel++;
+                    this.state.current = this.state.PLAYING;
+                } else {
+                    this.state.current = this.state.MENU;
+                }
+                break;
+        }
+    }
+
     draw(ctx) {
         ctx.drawImage(this.background, 0, 0, 850, 750);
 
-        if (this.state.current === this.state.MENU) {
-            this.drawButtons(ctx, this.state.current);
-        } else if (this.state.current !== this.state.PLAYING) {
-            ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-            ctx.fillRect(0, 0, 850, 750);
+        if (this.state.current !== this.state.PLAYING) {
+            if (this.state.current !== this.state.MENU) {
+                ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
+                ctx.fillRect(0, 0, 850, 750);
+            }
             
             ctx.font = '48px TrajanPro';
             ctx.fillStyle = '#DCBB12';
             ctx.textAlign = 'center';
-            ctx.fillText(this.state.current.charAt(0) + this.state.current.slice(1).toLowerCase(), 425, 300);
             
-            ctx.font = '24px TrajanPro';
-            ctx.fillStyle = '#FFFFFF';
-            this.wrapText(ctx, this.content[this.state.current], 425, 350, 600, 30);
-            this.drawButtons(ctx, this.state.current);
+            // Draw title
+            const title = this.state.current.charAt(0) + this.state.current.slice(1).toLowerCase();
+            if(title!=="Menu")
+            ctx.fillText(title.replace('_', ' '), 425, 300);
+            
+            // Draw content if available
+            if (this.content[this.state.current]) {
+                ctx.font = '24px TrajanPro';
+                ctx.fillStyle = '#FFFFFF';
+                this.wrapText(ctx, this.content[this.state.current], 425,375, 600, 30);
+            }
+            
+            // Draw buttons
+            if (this.buttons[this.state.current]) {
+                this.drawButtons(ctx, this.state.current);
+            }
         }
     }
 
