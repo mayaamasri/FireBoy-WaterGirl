@@ -9,6 +9,8 @@ class River extends Sprite {
         this.waveOffset = 3;
         this.waveSpeed = 0.1;
         
+        this.deathSound = new Audio('sounds/death.mp3');
+
         this.riverSound = new Audio('sounds/river.mp3');
         this.riverSound.volume = 0.3;
     }
@@ -25,6 +27,7 @@ class River extends Sprite {
                 if (sprite instanceof Player) {
                     if (this.type === 'hazard' || sprite.type !== this.type) {
                         if (this.checkCollision(sprite)) {
+                            this.deathSound.play();
                             if (gameStateManager) {
                                 gameStateManager.gameOver(sprites);
                             }
