@@ -2,6 +2,9 @@ class LevelManager extends Sprite {
     constructor() {
         super();
         this.currentLevel = 1;
+        this.bgMusic = new Audio('sounds/background.mp3');
+        this.bgMusic.loop = true;
+        this.bgMusic.volume = 0.4;
         this.levels = {
             1: [
                 new Background(),
@@ -116,6 +119,7 @@ class LevelManager extends Sprite {
             this.currentLevel = level;
             game.sprites = [...this.levels[level]];
             game.addSprite(this);
+            this.bgMusic.play();
             game.addSprite(new RestartManager(game.sprites));
             game.addSprite(new GameStateManager());
         }
