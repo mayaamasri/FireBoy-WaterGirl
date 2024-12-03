@@ -6,10 +6,7 @@ class MenuScreen extends Sprite {
             MENU: 'MENU',
             STORY: 'STORY',
             WALKTHROUGH: 'WALKTHROUGH',
-            LEVEL_SELECT: 'LEVEL_SELECT',
-            PLAYING: 'PLAYING',
-            GAME_OVER: 'GAME_OVER',
-            WIN: 'WIN'
+            LEVEL_SELECT: 'LEVEL_SELECT'
         };
         
         this.selectedLevel = 1;
@@ -37,24 +34,13 @@ class MenuScreen extends Sprite {
             LEVEL_SELECT: [
                 { text: 'Level 1', x: 350, y: 350, width: 150, height: 50 },
                 { text: 'Level 2', x: 350, y: 420, width: 150, height: 50 },
-                { text: 'Level 3', x: 350, y: 495, width: 150, height: 50 },
                 { text: 'Back', x: 350, y: 600, width: 150, height: 50 }
-            ],
-            GAME_OVER: [
-                { text: 'Retry', x: 300, y: 400, width: 150, height: 50 },
-                { text: 'Menu', x: 500, y: 400, width: 150, height: 50 }
-            ],
-            WIN: [
-                { text: 'Next Level', x: 300, y: 400, width: 150, height: 50 },
-                { text: 'Menu', x: 500, y: 400, width: 150, height: 50 }
             ]
         };
 
         this.content = {
             STORY: 'FireBoy and WaterGirl must work together to collect gems and reach their respective doors.',
             WALKTHROUGH: 'Use WASD to control WaterGirl and Arrow Keys for FireBoy. Press O near levers to activate them. Press R to restart.',
-            GAME_OVER: 'Game Over! Try again?',
-            WIN: 'Level Complete!'
         };
 
         document.addEventListener('click', () => this.bgMusic.play(), { once: true });
@@ -97,34 +83,12 @@ class MenuScreen extends Sprite {
                 this.state.current = this.state.MENU;
                 break;
                 case 'Level 1':
-                    const levelManager = new LevelManager();
-                    levelManager.loadLevel(1);
-                    this.state.current = this.state.PLAYING;
-                    break;
                 case 'Level 2':
-                    const levelManager2 = new LevelManager();
-                    levelManager2.loadLevel(2);
-                    this.state.current = this.state.PLAYING;
+                    const level = parseInt(buttonText.slice(-1));
+                    const levelManager = new LevelManager();
+                    game.sprites = [];
+                    levelManager.loadLevel(level);
                     break;
-                case 'Level 3':
-                    const levelManager3 = new LevelManager();
-                    levelManager3.loadLevel(3);
-                    this.state.current = this.state.PLAYING;
-                    break;
-            case 'Retry':
-                this.state.current = this.state.PLAYING;
-                break;
-            case 'Menu':
-                this.state.current = this.state.MENU;
-                break;
-            case 'Next Level':
-                if (this.selectedLevel < this.maxLevels) {
-                    this.selectedLevel++;
-                    this.state.current = this.state.PLAYING;
-                } else {
-                    this.state.current = this.state.MENU;
-                }
-                break;
         }
     }
 

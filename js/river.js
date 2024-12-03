@@ -16,26 +16,31 @@ class River extends Sprite {
     update(sprites) {
         this.waveOffset += this.waveSpeed;
         
-        sprites.forEach(sprite => {
-            if (sprite instanceof Player) {
-                if (this.type === 'hazard' || sprite.type !== this.type) {
-                    if (this.checkCollision(sprite)) {
-                        sprite.x = 100;
-                        sprite.y = sprite.type === 'fire' ? 575 : 675;
-                        sprite.velocityX = 0;
-                        sprite.velocityY = 0;
-                    }
-                } else {
-                    if (this.checkCollision(sprite)) {
-                        if (!this.riverSound.paused) {
-                            this.riverSound.pause();
-                        } else {
-                            this.riverSound.play();
+        const gameStateManager = sprites.find(sprite => 
+            sprite instanceof GameStateManager
+        );
+
+        if (gameStateManager && gameStateManager.state.current === 'PLAYING') {
+            sprites.forEach(sprite => {
+                if (sprite instanceof Player) {
+                    if (this.type === 'hazard' || sprite.type !== this.type) {
+                        if (this.checkCollision(sprite)) {
+                            if (gameStateManager) {
+                                gameStateManager.gameOver(sprites);
+                            }
+                        }
+                    } else {
+                        if (this.checkCollision(sprite)) {
+                            if (!this.riverSound.paused) {
+                                this.riverSound.pause();
+                            } else {
+                                this.riverSound.play();
+                            }
                         }
                     }
                 }
-            }
-        });
+            });
+        }
         return false;
     }
 

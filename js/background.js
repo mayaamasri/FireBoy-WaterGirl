@@ -16,7 +16,6 @@ class Background extends Sprite {
         ctx.strokeStyle = '#202200';
         ctx.lineWidth = 3;
         
-        // Horizontal lines
         for (let y = this.y; y < this.y + this.height; y += this.brickHeight) {
             ctx.beginPath();
             ctx.moveTo(this.x, y);
@@ -24,7 +23,6 @@ class Background extends Sprite {
             ctx.stroke();
         }
         
-        // Vertical lines with offset for every other row
         for (let y = this.y; y < this.y + this.height; y += this.brickHeight) {
             const offset = ((y - this.y) / this.brickHeight % 2) * (this.brickWidth / 2);
             for (let x = this.x + offset; x < this.x + this.width; x += this.brickWidth) {

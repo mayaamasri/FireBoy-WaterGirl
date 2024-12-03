@@ -10,17 +10,21 @@ class RestartManager extends Sprite {
             const { constructor: SpriteType, x, y, width, height, type, moveDistance, direction } = sprite;
             switch(true) {
                 case sprite instanceof Background: return new SpriteType();
+                case sprite instanceof ScoreManager: return new SpriteType();
+                case sprite instanceof GameStateManager: return new SpriteType();
+                case sprite instanceof ScoreManager: return new SpriteType();
                 case sprite instanceof Platform: return new SpriteType(x, y, width, height);
-                case sprite instanceof MovingBar: return new SpriteType(x, y, width, height, moveDistance, direction);
+                case sprite instanceof LeverMovingBar: return new SpriteType(x, y, width, height, moveDistance, direction);
                 case sprite instanceof ButtonBar: return new SpriteType(x, y, width, height, moveDistance, direction);
                 case sprite instanceof River: return new SpriteType(x, y, width, height, type);
                 case sprite instanceof Gem: return new SpriteType(x, y, type);
                 case sprite instanceof Door: return new SpriteType(x, y, type);
                 case sprite instanceof Lever: return new SpriteType(x, y);
-                case sprite instanceof Button: return new SpriteType(x, y);
+                case sprite instanceof PurpleButton: return new SpriteType(x, y);
+                case sprite instanceof GreenButton: return new SpriteType(x, y);
                 case sprite instanceof Rock: return new SpriteType(x, y, width, height);
-                case sprite instanceof FireBoy: return new SpriteType(100, 575);
-                case sprite instanceof WaterGirl: return new SpriteType(100, 675);
+                case sprite instanceof FireBoy: return new SpriteType(x, y);
+                case sprite instanceof WaterGirl: return new SpriteType(x, y);
                 default: return null;
             }
         }).filter(Boolean);
@@ -35,6 +39,7 @@ class RestartManager extends Sprite {
     restartLevel() {
         game.sprites = this.cloneLevelData(this.levelSprites);
         game.addSprite(this);
+        game.addSprite(new GameStateManager());
     }
 
     update() {

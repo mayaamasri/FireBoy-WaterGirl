@@ -1,5 +1,5 @@
 class Button extends Sprite {
-    constructor(x, y) {
+    constructor(x, y, config) {
         super();
         this.x = x;
         this.y = y;
@@ -8,7 +8,7 @@ class Button extends Sprite {
         this.isPressed = false;
         this.wasPressed = false;
         this.spriteSheet = new Image();
-        this.spriteSheet.src = 'images/button.png';
+        this.spriteSheet.src = config.spriteSheetPath;
         this.buttonSound = new Audio('sounds/lever-button.mp3');
     }
 
@@ -50,5 +50,21 @@ class Button extends Sprite {
             this.width,
             this.height
         );
+    }
+}
+
+class PurpleButton extends Button {
+    constructor(x, y) {
+        super(x, y, {
+            spriteSheetPath: 'images/buttons/purplebtn.png'
+        });
+    }
+}
+
+class GreenButton extends Button {
+    constructor(x, y) {
+        super(x, y, {
+            spriteSheetPath: 'images/buttons/greenbtn.png'
+        });
     }
 }

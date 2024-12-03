@@ -32,9 +32,9 @@ class LevelManager extends Sprite {
                 new Platform(325, 100, 100, 75),
                 new Platform(325, 175, 800, 25),
                 new Lever(200, 490),
-                new MovingBar(25, 400, 100, 25, 75, "down"),
-                new Button(275, 375),
-                new Button(625, 275),
+                new LeverMovingBar(25, 400, 100, 25, 75, 'down'),
+                new PurpleButton(275, 375),
+                new PurpleButton(625, 275),
                 new ButtonBar(725, 300, 100, 25, 75, "down"),
                 new Rock(500, 200, 50, 50),
                 new Gem(610, 675, "water"),
@@ -54,6 +54,7 @@ class LevelManager extends Sprite {
                 new Door(50, 75, "fire"),
                 new Door(150, 75, "water"),
                 new FireBoy(50, 675),
+                new ButtonBar(475, 150, 125, 25, 125, "left"),
                 new WaterGirl(100, 675),
                 new Platform(0, 0, 25, 750),
                 new Platform(825, 0, 25, 750),
@@ -99,10 +100,11 @@ class LevelManager extends Sprite {
                 new River(150, 627, 200, 12, "water"),
                 new River(175, 387, 200, 12, "hazard"),
                 new River(475, 387, 150, 12, "hazard"),
-                new Button(650, 500),
-                new Button(150, 500),
-                new Button(550, 125),
-                new Button(250, 125),
+                new GreenButton(650, 500),
+                new VerticalButtonBar(412, 425, 25, 100, 100, 'up'),
+                new GreenButton(150, 500),
+                new PurpleButton(550, 125),
+                new PurpleButton(250, 125),
             ]
         };
     }
@@ -113,6 +115,7 @@ class LevelManager extends Sprite {
             game.sprites = [...this.levels[level]];
             game.addSprite(this);
             game.addSprite(new RestartManager(game.sprites));
+            game.addSprite(new GameStateManager());
         }
     }
 
@@ -127,25 +130,25 @@ class LevelManager extends Sprite {
         }
     }
 
-    update() {
-        const doorsReached = game.sprites.filter(sprite => 
-            sprite instanceof Door
-        ).every(door => {
-            const matchingPlayer = game.sprites.find(sprite => 
-                (sprite instanceof FireBoy && door.type === 'fire') ||
-                (sprite instanceof WaterGirl && door.type === 'water')
-            );
-            if (!matchingPlayer) return false;
-            
-            const distance = Math.sqrt(
-                Math.pow(door.x - matchingPlayer.x, 2) + 
-                Math.pow(door.y - matchingPlayer.y, 2)
-            );
-            return distance < 100;
-        });
-
-        if (doorsReached) {
-            this.nextLevel();
+    update(sprites, keys) {
+        const gameStateManager = sprites.find(sprite => sprite instanceof GameStateManager);
+        
+        if (gameStateManager) {
+            switch(gameStateManager.state.current) {
+                case 'GAME_OVER':
+                    if (keys['r']) {
+                        this.restartLevel();
+                        return true;
+                    }
+                    break;
+                    
+                case 'WIN':
+                    if (keys['n']) {
+                        this.nextLevel();
+                        return true;
+                    }
+                    break;
+            }
         }
         return false;
     }
