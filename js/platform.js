@@ -16,11 +16,9 @@ class Platform extends Sprite {
         ctx.fillStyle = `#726834`;
         ctx.fillRect(this.x, this.y, this.width, this.height);
 
-        // Draw brick pattern
         ctx.strokeStyle = `#5A522A`;
         ctx.lineWidth = 3;
         
-        // Horizontal lines
         for (let y = this.y; y < this.y + this.height; y += this.brickHeight) {
             ctx.beginPath();
             ctx.moveTo(this.x, y);
@@ -28,7 +26,6 @@ class Platform extends Sprite {
             ctx.stroke();
         }
         
-        // Vertical lines with offset for every other row
         for (let y = this.y; y < this.y + this.height; y += this.brickHeight) {
             const offset = ((y - this.y) / this.brickHeight % 2) * (this.brickWidth / 2);
             for (let x = this.x + offset; x < this.x + this.width; x += this.brickWidth) {

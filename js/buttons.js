@@ -24,7 +24,6 @@ class Button extends Sprite {
         });
 
         if (this.isPressed && !this.wasPressed) {
-            this.buttonSound.currentTime = 0;
             this.buttonSound.play();
         }
 

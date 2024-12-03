@@ -14,7 +14,6 @@ class Gem extends Sprite {
         this.movingUp = true;
         this.glowIntensity = 1;
         
-        // Load sprite sheet
         this.spriteSheet = new Image();
         this.spriteSheet.src = 'images/gems.png';
 
@@ -64,7 +63,6 @@ class Gem extends Sprite {
                 {r: 255, g: 0, b: 0} : 
                 {r: 0, g: 255, b: 255};
             
-            // Draw glow
             const glowSize = 30;
             const gradient = ctx.createRadialGradient(
                 this.x + this.width/2, this.y + this.height/2, 0,
@@ -82,7 +80,6 @@ class Gem extends Sprite {
                 this.height + glowSize * 2
             );
             
-            // Draw the appropriate gem from sprite sheet
             const sourceX = this.type === 'water' ? 0 : 24;
             ctx.drawImage(
                 this.spriteSheet,
