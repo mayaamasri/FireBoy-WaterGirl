@@ -16,7 +16,6 @@ class Game {
         this.resetart = false;
         this.bindKeyboardEvents();
     }
-
     addSprite(sprite) {
         this.sprites.push(sprite);
     }

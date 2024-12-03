@@ -71,6 +71,8 @@ class LevelManager extends Sprite {
                 new Platform(0, 450, 100, 75),
                 new Platform(150, 400, 675, 25),
                 new Platform(150, 375, 25, 25),
+                new Platform(225, 340, 100, 10),
+                new Platform(525, 340, 50, 10),
                 new Platform(375, 375, 100, 25),
                 new Platform(625, 375, 200, 25),
                 new Platform(675, 300, 150, 75),
