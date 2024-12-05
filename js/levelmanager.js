@@ -117,11 +117,12 @@ class LevelManager extends Sprite {
     loadLevel(level) {
         if (this.levels[level]) {
             this.currentLevel = level;
-            game.sprites = [...this.levels[level]];
+            game.sprites = [];
+            game.sprites.push(...this.levels[level]);
             game.addSprite(this);
-            this.bgMusic.play();
             game.addSprite(new RestartManager(game.sprites));
             game.addSprite(new GameStateManager());
+            this.bgMusic.play();
         }
     }
 

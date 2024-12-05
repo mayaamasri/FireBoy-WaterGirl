@@ -11,17 +11,17 @@ class RestartManager extends Sprite {
             switch(true) {
                 case sprite instanceof Background: return new SpriteType();
                 case sprite instanceof ScoreManager: return new SpriteType();
-                case sprite instanceof GameStateManager: return new SpriteType();
                 case sprite instanceof ScoreManager: return new SpriteType();
                 case sprite instanceof Platform: return new SpriteType(x, y, width, height);
+                case sprite instanceof Lever: return new SpriteType(x, y);
+                case sprite instanceof PurpleButton: return new SpriteType(x, y);
+                case sprite instanceof GreenButton: return new SpriteType(x, y);
                 case sprite instanceof LeverMovingBar: return new SpriteType(x, y, width, height, moveDistance, direction);
+                case sprite instanceof VerticalButtonBar: return new SpriteType(x, y, width, height, moveDistance, direction);
                 case sprite instanceof ButtonBar: return new SpriteType(x, y, width, height, moveDistance, direction);
                 case sprite instanceof River: return new SpriteType(x, y, width, height, type);
                 case sprite instanceof Gem: return new SpriteType(x, y, type);
                 case sprite instanceof Door: return new SpriteType(x, y, type);
-                case sprite instanceof Lever: return new SpriteType(x, y);
-                case sprite instanceof PurpleButton: return new SpriteType(x, y);
-                case sprite instanceof GreenButton: return new SpriteType(x, y);
                 case sprite instanceof Rock: return new SpriteType(x, y, width, height);
                 case sprite instanceof FireBoy: return new SpriteType(x, y);
                 case sprite instanceof WaterGirl: return new SpriteType(x, y);

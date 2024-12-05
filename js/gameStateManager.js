@@ -9,9 +9,13 @@ class GameStateManager extends Sprite {
         };
         this.finalScore = 0;
         this.finalTime = 0;
+        this.gotonextLevel = false;
     }
 
     update(sprites, keys) {
+        if(this.gotonextLevel){
+            return true;
+        }
         switch(this.state.current) {
             case 'PLAYING':
                 const doors = sprites.filter(sprite => sprite instanceof Door);
@@ -42,10 +46,6 @@ class GameStateManager extends Sprite {
                         sprite.velocityY = 0;
                     }
                 });
-                
-                if (keys['m']) {
-                    game.sprites = [new MenuScreen()];
-                }
                 break;
         }
         return false;
@@ -60,12 +60,6 @@ class GameStateManager extends Sprite {
                 scoreManager.state.current = 'PAUSED';
             }
             this.state.current = 'GAME_OVER';
-            sprites.forEach(sprite => {
-                if (sprite instanceof Player) {
-                    sprite.velocityX = 0;
-                    sprite.velocityY = 0;
-                }
-            });
         }
     }
 
@@ -78,12 +72,6 @@ class GameStateManager extends Sprite {
                 scoreManager.state.current = 'PAUSED';
             }
             this.state.current = 'WIN';
-            sprites.forEach(sprite => {
-                if (sprite instanceof Player) {
-                    sprite.velocityX = 0;
-                    sprite.velocityY = 0;
-                }
-            });
         }
     }
 
@@ -100,7 +88,6 @@ class GameStateManager extends Sprite {
                 
                 ctx.font = '24px TrajanPro';
                 ctx.fillText('Press R to restart', 425, 400);
-                ctx.fillText('Press M for menu', 425, 450);
                 break;
 
             case 'WIN':
@@ -121,7 +108,6 @@ class GameStateManager extends Sprite {
                 
                 ctx.font = '24px TrajanPro';
                 ctx.fillText('Press N for next level', 425, 490);
-                ctx.fillText('Press M for menu', 425, 530);
                 break;
         }
     }
