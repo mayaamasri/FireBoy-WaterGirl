@@ -1,26 +1,27 @@
 class InteractivePlatform extends Platform {
     constructor(x, y, width, height, moveDistance, config) {
-        super(x, y, width, height);
-        this.initialX = x;
-        this.initialY = y;
-        this.moveDistance = moveDistance;
-        this.moveSpeed = config.moveSpeed || 3;
-        this.direction = config.direction;
-        this.spriteSheet = new Image();
-        this.spriteSheet.src = config.spriteSheetPath;
-        this.activatorType = config.activatorType;
-        this.isRotated = config.isRotated || false;
+        super(x, y, width, height); // Calls the parent Platform constructor
+        this.initialX = x; // Initial X position
+        this.initialY = y; // Initial Y position
+        this.moveDistance = moveDistance; // Distance the platform moves
+        this.moveSpeed = config.moveSpeed || 3; // Speed of movement
+        this.direction = config.direction; // Direction of movement
+        this.spriteSheet = new Image(); // Sprite image for the platform
+        this.spriteSheet.src = config.spriteSheetPath; // Path to the sprite sheet
+        this.activatorType = config.activatorType; // Type of activator (e.g., Button, Lever)
+        this.isRotated = config.isRotated || false; // Whether the platform is rotated
         this.state = {
-            current: 'INITIAL',
+            current: 'INITIAL', // Current state of the platform
             INITIAL: 'MOVED',
             MOVED: 'INITIAL'
         };
-        this.targetPos = { x: this.initialX, y: this.initialY };
+        this.targetPos = { x: this.initialX, y: this.initialY }; // Target position for movement
     }
 
+    // Checks if the platform is activated by its activator
     isActivated(sprites) {
         if (!sprites) return false;
-        
+
         switch (this.activatorType.name) {
             case 'PurpleButton':
             case 'GreenButton':
@@ -36,6 +37,7 @@ class InteractivePlatform extends Platform {
         }
     }
 
+    // Determines the target position based on activation state
     getTargetPosition(isActivated) {
         const positions = {
             up: { x: this.initialX, y: isActivated ? this.initialY - this.moveDistance : this.initialY },
@@ -46,6 +48,7 @@ class InteractivePlatform extends Platform {
         return positions[this.direction] || { x: this.initialX, y: this.initialY };
     }
 
+    // Updates the platform's position
     updatePosition(targetX, targetY, previousX, previousY) {
         const deltaX = targetX !== this.x ? 
             (this.x < targetX ? this.moveSpeed : -this.moveSpeed) : 0;
@@ -72,9 +75,10 @@ class InteractivePlatform extends Platform {
         };
     }
 
+    // Moves players standing on the platform
     movePlayersOnPlatform(sprites, deltaX, deltaY) {
         if (!sprites) return;
-        
+
         sprites.forEach(sprite => {
             if ((sprite instanceof FireBoy || sprite instanceof WaterGirl) && 
                 this.detectCollision(sprite) && 
@@ -85,13 +89,14 @@ class InteractivePlatform extends Platform {
         });
     }
 
+    // Updates the platform state and position
     update(sprites) {
         const isActivated = this.isActivated(sprites);
         const previousX = this.x;
         const previousY = this.y;
-        
+
         this.targetPos = this.getTargetPosition(isActivated);
-        
+
         const { deltaX, deltaY } = this.updatePosition(
             this.targetPos.x, 
             this.targetPos.y, 
@@ -101,10 +106,11 @@ class InteractivePlatform extends Platform {
 
         this.movePlayersOnPlatform(sprites, deltaX, deltaY);
         this.state.current = isActivated ? 'MOVED' : 'INITIAL';
-        
+
         return false;
     }
 
+    // Detects collision with a player
     detectCollision(player) {
         return player.x < this.x + this.width &&
                player.x + player.width > this.x &&
@@ -112,9 +118,10 @@ class InteractivePlatform extends Platform {
                player.y + player.height > this.y;
     }
 
+    // Draws the platform on the canvas
     draw(ctx) {
         const frameOffset = this.state.current === 'MOVED' ? 250 : 0;
-        
+
         if (this.isRotated) {
             ctx.save();
             ctx.translate(this.x + this.width / 2, this.y + this.height / 2);

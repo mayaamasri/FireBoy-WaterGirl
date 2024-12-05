@@ -30,6 +30,7 @@ class RestartManager extends Sprite {
         }).filter(Boolean);
     }
 
+    //sorry for using this but it didnt work otherwise
     bindRestartEvent() {
         document.addEventListener('keydown', e => {
             if (e.key === 'r') this.restartLevel();
@@ -42,7 +43,12 @@ class RestartManager extends Sprite {
         game.addSprite(new GameStateManager());
     }
 
-    update() {
+    update(keys) {
+        //this didnt work
+        // if(keys['r']) {
+        //     this.restartLevel();
+        //     return true;
+        // }
         return false;
     }
 }

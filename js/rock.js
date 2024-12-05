@@ -1,27 +1,28 @@
 class Rock extends Sprite {
     constructor(x, y, width, height) {
         super();
-        this.x = x;
-        this.y = y;
-        this.width = width;
-        this.height = height;
-        this.velocityX = 0;
-        this.velocityY = 0;
-        this.gravity = 0.5;
-        this.isMoving = false;
-        this.pushSpeed = 3;
-        
-        // Load the rock sprite
-        this.sprite = new Image();
+        this.x = x; // X-coordinate of the rock
+        this.y = y; // Y-coordinate of the rock
+        this.width = width; // Width of the rock
+        this.height = height; // Height of the rock
+        this.velocityX = 0; // Horizontal velocity
+        this.velocityY = 0; // Vertical velocity
+        this.gravity = 0.5; // Gravity affecting the rock
+        this.isMoving = false; // Indicates if the rock is moving
+        this.pushSpeed = 3; // Speed at which players can push the rock
+
+        this.sprite = new Image(); // Load rock sprite
         this.sprite.src = 'images/rock.png';
     }
 
+    // Updates rock's position and handles interactions
     update(sprites) {
-        this.velocityY += this.gravity;
-        this.x += this.velocityX;
-        this.y += this.velocityY;
-        this.velocityX = 0;
-        
+        this.velocityY += this.gravity; // Apply gravity
+        this.x += this.velocityX; // Update horizontal position
+        this.y += this.velocityY; // Update vertical position
+        this.velocityX = 0; // Reset horizontal velocity
+
+        // Handle collisions
         sprites.forEach(sprite => {
             if (sprite instanceof Player && this.checkCollision(sprite)) {
                 this.handlePlayerCollision(sprite);
@@ -33,6 +34,7 @@ class Rock extends Sprite {
         return false;
     }
 
+    // Checks collision with another entity
     checkCollision(entity) {
         return this.x < entity.x + entity.width &&
                this.x + this.width > entity.x &&
@@ -40,6 +42,7 @@ class Rock extends Sprite {
                this.y + this.height > entity.y;
     }
 
+    // Handles collision with a player
     handlePlayerCollision(player) {
         const fromLeft = (player.x + player.width) - this.x;
         const fromRight = (this.x + this.width) - player.x;
@@ -86,6 +89,7 @@ class Rock extends Sprite {
         }
     }
 
+    // Handles collision with a platform
     handlePlatformCollision(platform) {
         const fromLeft = (this.x + this.width) - platform.x;
         const fromRight = (platform.x + platform.width) - this.x;
@@ -123,6 +127,7 @@ class Rock extends Sprite {
         }
     }
 
+    // Draws the rock on the canvas
     draw(ctx) {
         ctx.drawImage(this.sprite, this.x, this.y, this.width, this.height);
     }

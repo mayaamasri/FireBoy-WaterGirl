@@ -1,10 +1,12 @@
 class LevelManager extends Sprite {
     constructor() {
         super();
-        this.currentLevel = 1;
+        this.currentLevel = 1; // The current level the player is on
         this.bgMusic = new Audio('sounds/background.mp3');
         this.bgMusic.loop = true;
         this.bgMusic.volume = 0.4;
+
+        //Level configuration
         this.levels = {
             1: [
                 new Background(),
@@ -114,6 +116,7 @@ class LevelManager extends Sprite {
         };
     }
 
+    // Load a level by its number
     loadLevel(level) {
         if (this.levels[level]) {
             this.currentLevel = level;
@@ -126,10 +129,12 @@ class LevelManager extends Sprite {
         }
     }
 
+    // Restart the current level
     restartLevel() {
         this.loadLevel(this.currentLevel);
     }
 
+    // Load the next level
     nextLevel() {
         const nextLevel = this.currentLevel + 1;
         if (this.levels[nextLevel]) {
@@ -137,6 +142,7 @@ class LevelManager extends Sprite {
         }
     }
 
+    // Update the level manager
     update(sprites, keys) {
         const gameStateManager = sprites.find(sprite => sprite instanceof GameStateManager);
         
